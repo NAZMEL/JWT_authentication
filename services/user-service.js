@@ -10,7 +10,9 @@ class UserService {
   async registration(email, password) {
     const candidate = await UserModel.findOne({ email });
     if (candidate) {
-      throw ApiError.BadRequest(`The user with ${email} exists. Try to login in.`);
+      throw ApiError.BadRequest(
+        `The user with ${email} exists. Try to login in.`
+      );
     }
 
     const hashPassword = await bcrypt.hash(password, 3);
@@ -46,6 +48,24 @@ class UserService {
 
     user.isActivated = true;
     await user.save();
+  }
+
+  async login(email, password) {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      throw ApiError.BadRequest("The user does't exists. Firstly register on.");
+    }
+
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!isPassEquals) {
+      throw ApiError.BadRequest("Your password is incorrect. Input it again.");
+    }
+
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+    return { ...tokens, user: userDto };
   }
 }
 
