@@ -1,51 +1,47 @@
-class UserController{
-    async registration(req, res, next){
-        try{
-            
-        } catch(e){
+const userService = require("../services/user-service");
 
-        }
-    }
+class UserController {
+  async registration(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const userData = await userService.registration(email, password);
 
-    async login(req, res, next){
-        try{
-            
-        } catch(e){
-            
-        }
-    }
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 3600 * 1000,
+        httpOnly: true,
+      });
 
-    async logout(req, res, next){
-        try{
-            
-        } catch(e){
-            
-        }
+      return res.json(userData);
+    } catch (e) {
+      console.log(e);
     }
+  }
 
-    async activate(req, res, next){
-        try{
-            
-        } catch(e){
-            
-        }
-    }
+  async login(req, res, next) {
+    try {
+    } catch (e) {}
+  }
 
-    async refresh(req, res, next){
-        try{
-            
-        } catch(e){
-            
-        }
-    }
+  async logout(req, res, next) {
+    try {
+    } catch (e) {}
+  }
 
-    async getUsers(req, res, next){
-        try{
-            res.json("hello");
-        } catch(e){
-            
-        }
-    }
+  async activate(req, res, next) {
+    try {
+    } catch (e) {}
+  }
+
+  async refresh(req, res, next) {
+    try {
+    } catch (e) {}
+  }
+
+  async getUsers(req, res, next) {
+    try {
+      res.json("hello");
+    } catch (e) {}
+  }
 }
 
 module.exports = new UserController();
