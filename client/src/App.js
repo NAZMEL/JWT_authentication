@@ -8,7 +8,7 @@ function App(props) {
       console.log("useEffect");
       props.checkAuth();
     }
-  }, [props]);
+  }, []);
 
   if (!props.isAuth) {
     return <LoginFormContainer />;
