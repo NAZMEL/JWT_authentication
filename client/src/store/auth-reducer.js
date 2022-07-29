@@ -9,16 +9,14 @@ let initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  let stateCopy = { ...state };
-
   switch (action.type) {
     case SET_AUTH_DATA:
       return {
-        stateCopy,
+        ...state,
         ...action.payload,
       };
     default:
-      return stateCopy;
+      return state;
   }
 };
 

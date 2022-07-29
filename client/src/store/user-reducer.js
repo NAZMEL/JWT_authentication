@@ -9,16 +9,14 @@ let initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  let stateCopy = { ...state };
-
   switch (action.type) {
     case SET_USER:
       return {
-        stateCopy,
+        ...state,
         ...action.payload,
       };
     default:
-      return stateCopy;
+      return state;
   }
 };
 
