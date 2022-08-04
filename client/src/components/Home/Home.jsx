@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
+import { connect } from "react-redux";
+import Login from "../Login/Login";
+import Users from "../Users/Users";
 
-const Home = () => {
+const Home = (props) => {
   return (
-    <div>Home</div>
-  )
-}
+    <div>
+      {props.isAuth && <h1>You are logined</h1>}
+      {props.isAuth && <Users/>}
 
-export default Home
+      {!props.isAuth && <Login />}
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+  };
+};
+
+export default connect(mapStateToProps, {})(Home);

@@ -1,0 +1,24 @@
+.headerMainBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerEmailBlock {
+    align-self: flex-start;
+    color: white;
+}
+
+.headerAuthBlock {
+    display: flex;
+    flex-direction: row;
+}
+
+.headerAuthItem {
+    margin-left: 1rem;
+    color: #fff;
+}
+
+.headerAuthItem:hover {
+    color: #009fe3;
+    cursor: pointer;
+}

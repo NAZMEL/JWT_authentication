@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import "./App.css";
 import useRoutes from "./routes";
 import { checkAuth } from "./store/auth-reducer";
-import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
+import { Layout } from "antd";
 
 function App(props) {
   const routes = useRoutes();
+  const { Content, Footer } = Layout;
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -17,13 +18,11 @@ function App(props) {
   }, []);
 
   return (
-    <div className="App">
-      <Header/>
-      
-      {!props.isAuth 
-        ? <Login />
-        : routes}
-    </div>
+    <Layout>
+      <Header />
+      <Content className="App">{routes}</Content>
+      <Footer className="App-footer">Footer</Footer>
+    </Layout>
   );
 }
 

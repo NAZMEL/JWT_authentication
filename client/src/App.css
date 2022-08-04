@@ -1,5 +1,14 @@
 .App {
   text-align: center;
+  height: 100vh;
+}
+
+.App-footer {
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: grey;
+  color: #fff;
 }
 
 .App-logo {
@@ -32,6 +41,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
