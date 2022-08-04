@@ -1,4 +1,4 @@
-import api from "../http/api";
+import api from "./api";
 
 class AuthService {
   static async login(email, password) {

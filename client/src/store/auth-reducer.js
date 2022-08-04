@@ -1,6 +1,6 @@
-import AuthService from "../services/auth-services";
+import AuthService from "../api/auth-service";
 
-const SET_AUTH_DATA = "SET_AUTH_DATA";
+const SET_AUTH_DATA = "SET-AUTH-DATA";
 
 let initialState = {
   email: "",
@@ -86,4 +86,5 @@ export const checkAuth = () => async (dispatch) => {
     console.log(e.response?.data?.message);
   }
 };
+
 export default authReducer;

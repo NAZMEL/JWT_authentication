@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import "./App.css";
-import LoginFormContainer from "./components/Login/LoginFormContainer";
-import UserService from "./services/user-service";
+import useRoutes from "./routes";
+import { checkAuth } from "./store/auth-reducer";
+import Login from "./components/Login/Login";
+import Header from "./components/Header/Header";
 
 function App(props) {
-  const [users, setUsers] = useState([]);
+  const routes = useRoutes();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -13,35 +16,21 @@ function App(props) {
     }
   }, []);
 
-  async function getUsers() {
-    try {
-      const response = await UserService.fetchUsers();
-      setUsers(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  if (!props.isAuth) {
-    return <LoginFormContainer />;
-  }
-
   return (
     <div className="App">
-      <h1>{`The user is logined with ${props.email}`}</h1>
-
-      <button onClick={props.logout}>Logout</button>
-
-      <div>
-        <button onClick={getUsers}>Get users</button>
-      </div>
-      <div>
-        {users.map((user) => {
-          return <div key={user.email}>{user.email}</div>;
-        })}
-      </div>
+      <Header/>
+      
+      {!props.isAuth 
+        ? <Login />
+        : routes}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.isAuth,
+  };
+};
+
+export default connect(mapStateToProps, { checkAuth })(App);
