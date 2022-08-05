@@ -1,5 +1,4 @@
 import AuthService from "../api/auth-service";
-import UserService from "../api/user-service";
 
 const SET_AUTH_DATA = "SET-AUTH-DATA";
 
@@ -87,18 +86,5 @@ export const checkAuth = () => async (dispatch) => {
     console.log(e.response?.data?.message);
   }
 };
-
-export const getUsers = async() =>{
-  try{
-    const response = await UserService.fetchUsers();
-    if(response.status === 2000){
-      let {users} = response.data;
-      return users;
-    }
-  } catch(e){
-    console.log(e);
-    return e;
-  }
-}
 
 export default authReducer;
